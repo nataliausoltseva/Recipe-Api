@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/recipe-api-nu/databases/Recipe-Appdb",
+      "type": "mssql.azure",
+      "connectionId": "RecipeConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
