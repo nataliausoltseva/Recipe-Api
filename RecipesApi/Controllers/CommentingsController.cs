@@ -31,7 +31,7 @@ namespace RecipesApi.Controllers
 
         // GET: api/Commentings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Commenting>> GetCommenting(int id)
+        public async Task<ActionResult> GetCommenting(int id)
         {
             var commenting = await _context.Commenting.FindAsync(id);
 
@@ -40,15 +40,20 @@ namespace RecipesApi.Controllers
                 return NotFound();
             }
 
-            return commenting;
+            return Ok(commenting);
         }
 
         // PUT: api/Commentings/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCommenting(int id, Commenting commenting)
+        public async Task<ActionResult> PutCommenting(int id, Commenting commenting)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (id != commenting.CommentingId)
             {
                 return BadRequest();
@@ -72,25 +77,34 @@ namespace RecipesApi.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(commenting);
         }
 
         // POST: api/Commentings
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Commenting>> PostCommenting(Commenting commenting)
+        public async Task<ActionResult> PostCommenting(Commenting commenting)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Commenting.Add(commenting);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCommenting", new { id = commenting.CommentingId }, commenting);
+            return Ok(commenting);
         }
 
         // DELETE: api/Commentings/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Commenting>> DeleteCommenting(int id)
+        public async Task<ActionResult> DeleteCommenting(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var commenting = await _context.Commenting.FindAsync(id);
             if (commenting == null)
             {
@@ -100,7 +114,7 @@ namespace RecipesApi.Controllers
             _context.Commenting.Remove(commenting);
             await _context.SaveChangesAsync();
 
-            return commenting;
+            return Ok(commenting);
         }
 
         private bool CommentingExists(int id)
