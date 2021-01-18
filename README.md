@@ -1,7 +1,5 @@
 # Recipe-Api
 
-This website is hosted at: http://recipe-api-nu.azurewebsites.net/index.html
-
 The structure of the Recipe response:
 ```json
 {
